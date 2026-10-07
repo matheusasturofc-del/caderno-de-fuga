@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="Caderno de Fuga: dez páginas, dez salas trancadas. Quem olha por dentro do desenho encontra mais.">
+<meta name="description" content="Caderno de Fuga: dez páginas, dez salas trancadas. Duas já estão desenhadas. Quem olha por dentro do desenho encontra mais.">
 <title>Caderno de Fuga</title>
 <!--
   Ei, você abriu o código. Bom sinal.
@@ -33,6 +33,7 @@
     --sticky: #fff09a;
     --sticky-ink: #2b2a1f;
     --shadow: rgba(0, 0, 0, 0.3);
+    --cloth: #cbbd9c;
   }
   @media (prefers-color-scheme: dark) {
     :root:not([data-theme="light"]) {
@@ -53,6 +54,7 @@
       --sticky: #d9c96a;
       --sticky-ink: #2b2a1f;
       --shadow: rgba(0, 0, 0, 0.6);
+      --cloth: #575043;
     }
   }
   :root[data-theme="dark"] {
@@ -73,6 +75,7 @@
     --sticky: #d9c96a;
     --sticky-ink: #2b2a1f;
     --shadow: rgba(0, 0, 0, 0.6);
+    --cloth: #575043;
   }
 
   :root {
@@ -177,6 +180,7 @@
   }
   .meters { display: flex; gap: 18px; font-size: 1.1rem; }
   .meters b { font-family: "Caveat", cursive; font-size: 1.7rem; font-variant-numeric: tabular-nums; margin-left: 4px; }
+  .bar .btn.ghost { color: var(--on-desk); border-color: var(--on-desk); font-size: 1.25rem; padding: 4px 14px 6px; }
   #flash { flex: 1 1 100%; min-height: 1.3em; margin: 0; color: var(--hl); }
 
   /* ---------- caderno ---------- */
@@ -220,7 +224,7 @@
     background: var(--paper);
     overflow: hidden;
   }
-  #scene { display: block; width: 100%; height: auto; }
+  #scene, #scene2 { display: block; width: 100%; height: auto; }
 
   /* desenho */
   .ln { fill: none; stroke: var(--ink); stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
@@ -291,7 +295,21 @@
   .notes li { margin-bottom: 0; }
   .notes li.tip { color: var(--blue); }
   .notes .empty { color: var(--muted); }
-  .notes .btn { margin-left: 14px; }
+  .notes li { position: relative; padding-right: 34px; }
+  .note-x {
+    position: absolute; right: 0; top: 3px;
+    width: 26px; height: 26px;
+    border: 2px solid var(--muted);
+    border-radius: 55% 45% 52% 48% / 48% 55% 45% 52%;
+    background: transparent;
+    color: var(--muted);
+    font-size: 1.05rem; line-height: 1;
+    padding: 0;
+    display: grid; place-items: center;
+  }
+  .note-x:hover { color: var(--red); border-color: var(--red); }
+  .notes-actions { display: flex; flex-wrap: wrap; gap: 10px; margin-left: 14px; }
+  .notes-actions .btn { font-size: 1.35rem; padding: 6px 16px 8px; }
 
   .blank { padding: 40px 20px 30px 14px; text-align: center; }
   .blank .paper-x { width: min(320px, 80%); margin: 10px auto 18px; display: block; color: var(--ink); }
@@ -378,6 +396,36 @@
     .card, .shake { animation: none; }
     .btn, .hot .hl { transition: none; }
   }
+
+  /* ---------- página 2: o sótão ---------- */
+  .cloth { fill: var(--cloth); }
+  .floor-fill { fill: var(--paper); }
+  .hole { fill: #111214; }
+  .paint-red { fill: var(--red); opacity: 0.75; }
+  .paint-blue { fill: var(--blue); opacity: 0.7; }
+  .paint-green { fill: var(--green); opacity: 0.8; }
+  .paint-yel { fill: var(--hl); opacity: 0.95; }
+  .night { fill: #05060c; opacity: 0.86; pointer-events: none; }
+  .uv, .dark-only { pointer-events: none; }
+  .uv-glow { fill: #8f5bff; opacity: 0.3; }
+  .uv-ink { font-family: "Caveat", cursive; font-weight: 700; fill: #dcc2ff; }
+  .night, .uv, .dark-only, .bau-open, .hatch-open, .radio-open { display: none; }
+  #scene2.is-dark .night, #scene2.is-dark .dark-only { display: inline; }
+  #scene2.is-dark .lit { display: none; }
+  #scene2.is-dark.is-uv .uv { display: inline; }
+  #scene2.is-bau .bau-open, #scene2.is-hatch .hatch-open, #scene2.is-radio .radio-open { display: inline; }
+  #scene2.is-bau .bau-closed, #scene2.is-hatch .hatch-closed { display: none; }
+  .num.letter { font-size: 3.2rem; }
+  .pencils {
+    list-style: none; padding: 0; margin: 12px 0 14px;
+    display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px 16px;
+    font-size: 1.3rem;
+  }
+  .pencils i {
+    display: inline-block; width: 38px; height: 13px; margin-right: 8px;
+    border: 2px solid var(--ink); border-radius: 2px 9px 9px 2px;
+    vertical-align: middle;
+  }
 </style>
 </head>
 <body>
@@ -417,6 +465,32 @@
         <path d="M20 20L40 40M32 32L38 26M36 36L42 30"/>
       </g>
     </symbol>
+    <symbol id="s-moeda" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="24" cy="24" r="15"/>
+        <circle cx="24" cy="24" r="10" stroke-width="2"/>
+        <path d="M21 19L25 17V31"/>
+      </g>
+    </symbol>
+    <symbol id="s-pilha" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="15" y="12" width="18" height="30" rx="3"/>
+        <path d="M20 12V7H28V12M24 19V27M20 23H28M20 35H28"/>
+      </g>
+    </symbol>
+    <symbol id="s-lanterna" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20H24V30H4Z M24 17L36 12V38L24 33Z"/>
+        <circle cx="13" cy="25" r="2.5"/>
+      </g>
+    </symbol>
+    <symbol id="s-uv" viewBox="0 0 48 48">
+      <g fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M4 20H24V30H4Z M24 17L36 12V38L24 33Z"/>
+        <circle cx="13" cy="25" r="2.5"/>
+      </g>
+      <path d="M40 15L45 11M41 25H46M40 35L45 39" fill="none" stroke="#8f5bff" stroke-width="3.5" stroke-linecap="round"/>
+    </symbol>
   </defs>
 </svg>
 
@@ -435,12 +509,17 @@
     <h1>Caderno de Fuga</h1>
     <p class="sub">Dez páginas. Cada uma é uma sala trancada.</p>
     <ul class="todo">
-      <li>Clique nas coisas do desenho para examinar. Algumas pedem um item da mochila.</li>
+      <li>Clique nas coisas do desenho para examinar. Algumas pedem um item da mochila, e alguns itens se juntam: toque num e depois no outro.</li>
       <li>Nem tudo está à vista. Alguns segredos ficam por dentro do desenho, no código da página. Abram as ferramentas do navegador (F12, ou clique direito e Inspecionar).</li>
       <li>Joguem juntos numa tela só. Dicas existem, mas ficam registradas no fim.</li>
+      <li>Anotação errada? Apaguem uma por uma no ×, ou todas de uma vez. O jogo fica salvo neste aparelho para continuar depois.</li>
     </ul>
-    <button class="btn" id="startBtn" type="button">Abrir o caderno</button>
-    <p class="small" id="best">A página 1 está pronta. As outras ainda estão em branco.</p>
+    <div class="row">
+      <button class="btn" id="continueBtn" type="button" hidden>Continuar</button>
+      <button class="btn" id="startBtn" type="button">Abrir o caderno</button>
+    </div>
+    <p class="small" id="saveInfo" hidden></p>
+    <p class="small" id="best">As páginas 1 e 2 estão prontas. As outras ainda estão em branco.</p>
   </section>
 
   <!-- JOGO -->
@@ -452,16 +531,18 @@
         <span>Tempo<b id="clock">00:00</b></span>
         <span>Dicas<b id="hintCount">0</b></span>
       </div>
+      <button class="btn ghost" id="exitBtn" type="button">Salvar e sair</button>
       <p id="flash" role="status" aria-live="polite"></p>
     </div>
 
     <div class="notebook">
 
-      <!-- Página 1 -->
+      <!-- Páginas desenhadas -->
       <div class="page" id="room">
-        <h2>Página 1: a escrivaninha</h2>
+        <h2 id="roomTitle">Página 1: a escrivaninha</h2>
 
-        <div class="scene">
+        <!-- Página 1 -->
+        <div class="scene" id="sceneWrap1">
           <div class="sheet">
 <svg id="scene" viewBox="0 0 800 520" role="group" aria-label="Desenho de um quarto com escrivaninha, estante, janela, relógio, quadro e porta">
 
@@ -646,20 +727,239 @@
           </div>
         </div>
 
+        <!-- Página 2 -->
+        <div class="scene" id="sceneWrap2" hidden>
+          <div class="sheet">
+<svg id="scene2" viewBox="0 0 800 520" role="group" aria-label="Desenho de um sótão com telhado inclinado, lâmpada pendurada, cabideiro com casaco, baú, cavalete, rádio, prateleira e um alçapão no chão">
+
+  <g filter="url(#rough)">
+
+    <!-- telhado e chão -->
+    <path class="ln" d="M4 214 L400 26 L796 214"/>
+    <path class="ln thin" d="M4 228 L400 40 L796 228"/>
+    <path class="ln" d="M4 400 L796 398"/>
+    <path class="ln thin soft" d="M0 440 L800 438 M0 478 L800 480 M0 512 L800 512 M150 400 L126 520 M300 400 L292 520 M500 400 L508 520 M650 400 L674 520"/>
+
+    <!-- janela redonda -->
+    <g id="art-janela2">
+      <circle class="cr-blue" cx="400" cy="92" r="28"/>
+      <circle class="ln" cx="400" cy="92" r="28"/>
+      <circle class="ln thin" cx="400" cy="92" r="22"/>
+      <path class="ln thin" d="M400 70 V114 M378 92 H422"/>
+      <path class="cr-yel" d="M410 74 C404 76 401 81 401 86 C401 92 406 95 411 95 C414 95 416 94 417 92 C412 92 408 88 408 83 C408 80 409 77 410 74Z"/>
+    </g>
+
+    <!-- viga -->
+    <path class="cr-brown" d="M182 139 L618 138 L618 152 L182 153 Z"/>
+    <path class="ln" d="M182 139 L618 138 L618 152 L182 153 Z"/>
+    <path class="ln thin soft" d="M220 145 h30 M330 144 h40 M470 146 h30 M560 145 h24"/>
+
+    <!-- parede de tábuas -->
+    <g id="parede">
+      <path class="cr-brown" style="opacity:0.22" d="M16 222 L190 140 L190 400 L16 400 Z"/>
+      <path class="ln thin" d="M44 209 V400 M72 196 V400 M100 183 V400 M128 169 V400 M156 156 V400 M190 140 V400"/>
+      <path class="ln thin soft" d="M30 260 q4 3 0 6 M86 310 q5 2 1 7 M142 220 q4 3 0 6 M60 352 q-4 3 0 6 M170 290 q4 3 0 6"/>
+      <ellipse class="ln thin soft" cx="114" cy="262" rx="5" ry="3"/>
+      <ellipse class="ln thin soft" cx="58" cy="236" rx="4" ry="2.5"/>
+    </g>
+
+    <!-- cabideiro e casaco -->
+    <g id="art-casaco">
+      <path class="ln" d="M250 168 V390 M224 398 L250 386 L276 398"/>
+      <path class="ln thin" d="M250 176 q-14 0 -16 -10 M250 176 q14 0 16 -10"/>
+      <path class="cr-green" d="M250 184 L230 198 L224 318 L276 318 L270 198 Z"/>
+      <path class="ln" d="M250 184 L230 198 L224 318 L276 318 L270 198 Z"/>
+      <path class="ln thin" d="M250 184 L242 214 L250 238 L258 214 Z M250 238 V318"/>
+      <path class="ln thin" d="M256 270 H272 V288 H256 Z"/>
+      <circle class="dark-fill" cx="246" cy="258" r="2"/>
+      <circle class="dark-fill" cx="246" cy="282" r="2"/>
+    </g>
+
+    <!-- lâmpada -->
+    <g id="art-lampada">
+      <path class="ln" d="M400 152 V196"/>
+      <path class="ln" d="M393 196 H407 V206 H393 Z"/>
+      <g class="lit">
+        <circle class="cr-yel" style="opacity:0.35" cx="400" cy="219" r="27"/>
+        <path class="ln thin" d="M366 219 h-10 M434 219 h10 M376 243 l-7 7 M424 243 l7 7 M376 195 l-7 -7"/>
+      </g>
+      <circle class="cr-yel" cx="400" cy="219" r="13"/>
+      <circle class="ln" cx="400" cy="219" r="13"/>
+      <path class="ln thin" d="M396 214 q4 6 8 0"/>
+      <path class="ln thin" d="M409 204 L414 262"/>
+      <circle class="ln thin" cx="414" cy="266" r="4"/>
+    </g>
+
+    <!-- baú -->
+    <g id="art-bau">
+      <g class="bau-closed">
+        <path class="cr-brown" d="M318 352 Q390 318 462 352 L462 398 L318 398 Z"/>
+        <path class="ln" d="M318 352 Q390 318 462 352 L462 398 L318 398 Z"/>
+        <path class="ln" d="M318 356 H462"/>
+        <path class="ln thin" d="M346 341 V398 M434 341 V398"/>
+        <path class="ln thin" d="M380 362 V352 A10 8 0 0 1 400 352 V362"/>
+        <rect class="cr-yel" x="372" y="362" width="36" height="16" rx="2"/>
+        <rect class="ln thin" x="372" y="362" width="36" height="16" rx="2"/>
+        <path class="ln thin" d="M381 362 V378 M390 362 V378 M399 362 V378"/>
+      </g>
+      <g class="bau-open">
+        <path class="cr-brown" d="M322 356 L314 314 Q390 296 466 314 L458 356 Z"/>
+        <path class="ln" d="M322 356 L314 314 Q390 296 466 314 L458 356"/>
+        <path class="paint-green" d="M340 356 L346 332 L351 333 L346 356 Z"/>
+        <path class="paint-red" d="M354 356 L358 330 L363 331 L360 356 Z"/>
+        <path class="paint-blue" d="M368 356 L370 334 L375 334 L374 356 Z"/>
+        <path class="paint-yel" d="M382 356 L386 331 L391 332 L388 356 Z"/>
+        <path class="ln thin" d="M340 356 L346 332 L351 333 L346 356 M354 356 L358 330 L363 331 L360 356 M368 356 L370 334 L375 334 L374 356 M382 356 L386 331 L391 332 L388 356"/>
+        <path class="cr-sticky" d="M404 356 L410 338 L440 342 L436 356 Z"/>
+        <path class="ln thin" d="M404 356 L410 338 L440 342 L436 356"/>
+        <path class="cr-brown" d="M318 356 H462 V398 H318 Z"/>
+        <path class="ln" d="M318 356 H462 V398 H318 Z"/>
+        <path class="ln thin" d="M346 356 V398 M434 356 V398"/>
+      </g>
+    </g>
+
+    <!-- alçapão -->
+    <g id="art-alcapao">
+      <path class="floor-fill" d="M330 432 L470 432 L482 500 L318 500 Z"/>
+      <g class="hatch-closed">
+        <path class="cr-brown" d="M330 432 L470 432 L482 500 L318 500 Z"/>
+        <path class="ln" d="M330 432 L470 432 L482 500 L318 500 Z"/>
+        <path class="ln thin" d="M326 455 L474 455 M322 478 L478 478"/>
+        <path class="ln thin" d="M395 466 v-5 a5 5 0 0 1 10 0 v5"/>
+        <path class="ln" d="M391 466 h18 v15 h-18 Z"/>
+        <path class="ln thin" d="M395 474 h10"/>
+      </g>
+      <g class="hatch-open">
+        <path class="hole" d="M330 432 L470 432 L482 500 L318 500 Z"/>
+        <path class="ln" d="M330 432 L470 432 L482 500 L318 500 Z"/>
+        <path class="ln" style="stroke:var(--hl)" d="M376 436 L370 500 M424 436 L430 500 M374 452 H426 M372 468 H428 M371 484 H429"/>
+        <path class="cr-brown" d="M470 432 L540 440 L552 508 L482 500 Z"/>
+        <path class="ln" d="M470 432 L540 440 L552 508 L482 500 Z"/>
+      </g>
+    </g>
+
+    <!-- cavalete -->
+    <g id="art-cavalete">
+      <path class="ln" d="M504 290 L488 398 M552 290 L568 398 M528 186 V398"/>
+      <path class="ln thin" d="M494 352 H562"/>
+      <path class="ln" d="M476 292 H580"/>
+      <g id="pintura">
+        <path class="floor-fill" d="M482 196 H574 V290 H482 Z"/>
+        <path class="ln" d="M482 196 H574 V290 H482 Z"/>
+        <path class="ln thin" d="M484 258 q8 -5 16 0 t16 0 t16 0 t16 0 t16 0 t8 0"/>
+        <circle class="paint-green" cx="496" cy="222" r="9"/>
+        <circle class="ln thin" cx="496" cy="222" r="9"/>
+        <path class="ln thin" d="M496 231 q-4 8 2 16"/>
+        <circle class="paint-yel" cx="519" cy="214" r="7"/>
+        <circle class="ln thin" cx="519" cy="214" r="7"/>
+        <path class="ln thin" d="M519 203 v-3 M519 225 v3 M508 214 h-3 M530 214 h3"/>
+        <path class="paint-red" d="M534 254 H560 L554 264 H540 Z"/>
+        <path class="ln thin" d="M534 254 H560 L554 264 H540 Z M547 254 V234 L558 252 H547"/>
+        <path class="paint-blue" d="M552 278 q8 -8 14 0 q-6 8 -14 0 Z M552 278 l-5 -4 v8 Z"/>
+        <path class="ln thin" d="M552 278 q8 -8 14 0 q-6 8 -14 0 Z M552 278 l-5 -4 v8 Z"/>
+      </g>
+      <g id="pano">
+        <!-- este pano não sai com a mão -->
+        <path class="cloth" d="M476 190 Q528 182 582 190 L586 302 Q572 294 560 306 Q544 296 530 308 Q514 296 500 306 Q488 296 472 302 Z"/>
+        <path class="ln" d="M476 190 Q528 182 582 190 L586 302 Q572 294 560 306 Q544 296 530 308 Q514 296 500 306 Q488 296 472 302 Z"/>
+        <path class="ln thin" d="M498 194 Q504 248 496 302 M530 190 Q536 250 530 304 M560 192 Q556 250 562 300"/>
+        <circle class="ln thin" cx="482" cy="196" r="3"/>
+        <circle class="ln thin" cx="576" cy="196" r="3"/>
+      </g>
+    </g>
+
+    <!-- prateleira com porquinho e potes -->
+    <g id="art-prateleira">
+      <path class="ln" d="M592 236 L758 235 M604 236 L614 252 M746 235 L736 252"/>
+      <ellipse class="cr-red" cx="630" cy="220" rx="21" ry="14"/>
+      <ellipse class="ln" cx="630" cy="220" rx="21" ry="14"/>
+      <ellipse class="ln thin" cx="652" cy="218" rx="5" ry="6"/>
+      <path class="ln thin" d="M620 208 L623 199 L630 207 M624 206 H636 M616 232 V236 M642 232 V236 M609 222 q-6 -2 -4 -8"/>
+      <circle class="dark-fill" cx="643" cy="214" r="1.8"/>
+      <path class="cr-blue" d="M684 206 H706 V234 H684 Z"/>
+      <path class="ln thin" d="M684 206 H706 V234 H684 Z M682 200 H708 V206 H682 Z"/>
+      <path class="cr-green" d="M718 214 H738 V234 H718 Z"/>
+      <path class="ln thin" d="M718 214 H738 V234 H718 Z M716 208 H740 V214 H716 Z"/>
+    </g>
+
+    <!-- banquinho e rádio -->
+    <g id="art-radio">
+      <path class="cr-brown" d="M598 318 H702 V328 H598 Z"/>
+      <path class="ln" d="M598 318 H702 V328 H598 Z M608 328 L598 398 M692 328 L702 398 M614 370 H686"/>
+      <path class="cr-yel" d="M612 264 Q651 256 690 264 V318 H612 Z"/>
+      <path class="ln" d="M612 264 Q651 256 690 264 V318 H612 Z"/>
+      <path class="ln thin" d="M620 276 H654 M620 286 H654 M620 296 H654 M620 306 H654"/>
+      <circle class="ln" cx="674" cy="282" r="9"/>
+      <path class="ln thin" d="M674 282 L679 277 M682 262 L704 230"/>
+      <rect class="ln thin" x="662" y="300" width="24" height="12" rx="2"/>
+      <circle class="ln thin" cx="674" cy="306" r="2.5"/>
+      <g class="radio-open">
+        <rect class="hole" x="662" y="300" width="24" height="12" rx="2"/>
+        <path class="ln thin" d="M662 312 L654 324 L678 326 L686 312"/>
+      </g>
+    </g>
+
+    <!-- caixas -->
+    <g id="art-caixas">
+      <path class="cr-brown" d="M716 348 H786 V398 H716 Z"/>
+      <path class="ln" d="M716 348 H786 V398 H716 Z M716 348 L724 338 H794 L786 348 M794 338 V390 L786 398"/>
+      <path class="cr-brown" d="M728 314 H774 V348 H728 Z"/>
+      <path class="ln" d="M728 314 H774 V348 H728 Z"/>
+      <path class="ln thin" d="M751 314 V348 M740 362 H762"/>
+    </g>
+
+    <!-- poeira -->
+    <path class="ln thin soft" d="M60 420 q8 -5 16 0 M210 430 q8 -5 16 0 M560 424 q8 -5 16 0 M700 432 q8 -5 16 0"/>
+
+  </g>
+
+  <!-- escuro -->
+  <rect class="night" x="0" y="0" width="800" height="520"/>
+  <g class="dark-only">
+    <path d="M409 204 L414 262" fill="none" stroke="#77779a" stroke-width="2" stroke-linecap="round"/>
+    <circle cx="414" cy="266" r="4" fill="none" stroke="#77779a" stroke-width="2"/>
+  </g>
+  <g class="uv">
+    <path class="uv-glow" d="M16 222 L190 140 L190 400 L16 400 Z"/>
+    <text class="uv-ink" x="40" y="300" font-size="44">A</text>
+    <text class="uv-ink" x="66" y="278" font-size="22">3</text>
+    <text class="uv-ink" x="128" y="236" font-size="44">R</text>
+    <text class="uv-ink" x="154" y="214" font-size="22">4</text>
+    <text class="uv-ink" x="78" y="372" font-size="44">L</text>
+    <text class="uv-ink" x="100" y="350" font-size="22">1</text>
+    <text class="uv-ink" x="136" y="334" font-size="44">U</text>
+    <text class="uv-ink" x="162" y="312" font-size="22">2</text>
+  </g>
+
+  <!-- pontos clicáveis -->
+  <g class="hot" data-id="parede" tabindex="0" role="button" aria-label="Parede de tábuas"><path class="hl" d="M16 222 L190 140 L190 400 L16 400 Z"/></g>
+  <g class="hot" data-id="janela" tabindex="0" role="button" aria-label="Janela redonda"><circle class="hl" cx="400" cy="92" r="36"/></g>
+  <g class="hot" data-id="casaco" tabindex="0" role="button" aria-label="Casaco no cabideiro"><rect class="hl" x="212" y="160" width="76" height="240" rx="10"/></g>
+  <g class="hot" data-id="lampada" tabindex="0" role="button" aria-label="Lâmpada pendurada com cordinha"><rect class="hl" x="370" y="152" width="70" height="126" rx="10"/></g>
+  <g class="hot" data-id="bau" tabindex="0" role="button" aria-label="Baú com cadeado de letras"><rect class="hl" x="310" y="318" width="160" height="86" rx="10"/></g>
+  <g class="hot" data-id="alcapao" tabindex="0" role="button" aria-label="Alçapão no chão"><path class="hl" d="M324 426 L476 426 L490 508 L310 508 Z"/></g>
+  <g class="hot" data-id="cavalete" tabindex="0" role="button" aria-label="Cavalete com uma tela coberta por um pano"><rect class="hl" x="470" y="182" width="118" height="220" rx="10"/></g>
+  <g class="hot" data-id="porquinho" tabindex="0" role="button" aria-label="Porquinho de cerâmica na prateleira"><rect class="hl" x="600" y="196" width="66" height="44" rx="10"/></g>
+  <g class="hot" data-id="radio" tabindex="0" role="button" aria-label="Rádio velho sobre um banquinho"><rect class="hl" x="594" y="252" width="116" height="150" rx="10"/></g>
+  <g class="hot" data-id="caixas" tabindex="0" role="button" aria-label="Caixas de papelão"><rect class="hl" x="708" y="306" width="90" height="96" rx="10"/></g>
+</svg>
+          </div>
+        </div>
+
         <div class="narr" id="narr" role="status" aria-live="polite">
-          <p>Você acorda dentro de um desenho. A porta tem quatro símbolos e nenhuma maçaneta que sirva. Comece olhando em volta.</p>
+          <p></p>
         </div>
 
         <div class="bag">
           <span>Mochila</span>
-          <div id="bag" style="display:flex; gap:10px;"></div>
+          <div id="bag" style="display:flex; gap:10px; flex-wrap:wrap;"></div>
           <span class="holding" id="holding"></span>
         </div>
       </div>
 
-      <!-- Página em branco (2 a 10) -->
+      <!-- Página em branco (3 a 10) -->
       <div class="page blank" id="blank" hidden>
-        <h2 id="blankTitle">Página 2</h2>
+        <h2 id="blankTitle">Página 3</h2>
         <svg class="paper-x" viewBox="0 0 320 140" aria-hidden="true" focusable="false">
           <g filter="url(#rough-s)" fill="none" stroke="currentColor" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round">
             <path d="M20 20H300V120H20Z" stroke-dasharray="10 8"/>
@@ -667,17 +967,19 @@
           </g>
         </svg>
         <p>Esta página ainda não foi desenhada. A próxima sala chega em breve.</p>
-        <button class="btn ghost" id="backBtn" type="button">Voltar para a página 1</button>
+        <button class="btn ghost" id="backBtn" type="button">Voltar para a página 2</button>
       </div>
 
       <aside class="notes" aria-label="Anotações">
         <h3>Anotações</h3>
         <ol id="notes"></ol>
-        <button class="btn ghost" id="hintBtn" type="button">Pedir dica</button>
+        <div class="notes-actions">
+          <button class="btn ghost" id="hintBtn" type="button">Pedir dica</button>
+          <button class="btn ghost" id="clearBtn" type="button">Apagar anotações</button>
+        </div>
       </aside>
     </div>
   </section>
-
   <!-- diálogos -->
   <div class="veil" id="veil" hidden>
     <div class="card" id="card" role="dialog" aria-modal="true" aria-labelledby="cardTitle"></div>
@@ -685,6 +987,7 @@
 
   <!-- recado escondido -->
   <div id="recado" hidden aria-hidden="true">Quem inspeciona o tapete encontra o que a gaveta pede.</div>
+  <div id="recado-2" hidden aria-hidden="true">Um pano desenhado é só uma linha de código. Esconda a linha e a pintura aparece.</div>
 
 </div>
 
@@ -692,27 +995,63 @@
 (function () {
   "use strict";
 
-  var DRAWER_CODE = "NzM1";                          // gaveta
-  var DOOR_CODE = "bHVhLHNvbCxnb3RhLGVzdHJlbGE=";    // porta
+  var CODES = {
+    gaveta: "NzM1",                          // gaveta
+    porta: "bHVhLHNvbCxnb3RhLGVzdHJlbGE=",    // porta
+    bau: "TFVBUg==",                          // baú
+    alcapao: "NzI0OQ=="                       // alçapão
+  };
   var SYMS = ["sol", "lua", "gota", "estrela", "folha"];
   var SYM_NAMES = { sol: "sol", lua: "lua", gota: "gota", estrela: "estrela", folha: "folha" };
+  var DIGITS = "0123456789".split("");
+  var LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
   var ROOMS = 10;
+  var BUILT = 2;
+  var SLOTS = 4;
+
+  var TITLES = { 1: "Página 1: a escrivaninha", 2: "Página 2: o sótão" };
+  var INTRO = {
+    1: "Você acorda dentro de um desenho. A porta tem quatro símbolos e nenhuma maçaneta que sirva. Comece olhando em volta.",
+    2: "A página vira e você cai num sótão empoeirado. A única saída é um alçapão trancado no chão. Pelo menos a lâmpada do teto ainda funciona."
+  };
+
+  var ITEMS = {
+    chave: "chave de latão",
+    moeda: "moeda",
+    pilha: "pilha",
+    lanterna: "lanterna de luz roxa (sem pilha)",
+    uv: "lanterna de luz roxa (com pilha)"
+  };
 
   function $(id) { return document.getElementById(id); }
   function pad(n) { return (n < 10 ? "0" : "") + n; }
   function fmt(sec) { return pad(Math.floor(sec / 60)) + ":" + pad(sec % 60); }
+  function cap(s) { return s.charAt(0).toUpperCase() + s.slice(1); }
 
   var state = null, timerId = null, lastFocus = null, flashId = null;
 
-  function fresh() {
+  function freshPage() {
     return {
-      t0: 0, running: false, elapsed: 0, page: 1,
-      hints: 0, hintStage: {},
-      drawer: false, box: false, done: false,
-      inv: [], selected: null,
-      notes: [], noteKeys: {}
+      started: false, t0: 0, elapsed: 0, running: false, done: false,
+      hints: 0, hintStage: {}, notes: [], noteKeys: {}, narr: ""
     };
   }
+
+  function fresh() {
+    return {
+      page: 1,
+      p: { 1: freshPage(), 2: freshPage() },
+      inv: [], selected: null,
+      // página 1
+      drawer: false, box: false,
+      // página 2
+      coat: false, coin: false, radio: false, lit: false,
+      dark: false, uv: false, chest: false, painting: false
+    };
+  }
+
+  function built(n) { return n >= 1 && n <= BUILT; }
+  function pg() { return state.p[state.page]; }
 
   /* ---------- textos ---------- */
   var HOT = {
@@ -748,30 +1087,74 @@
     }
   };
 
-  var HINTS = {
-    drawer: [
-      "A gaveta pede três algarismos. Procurem três lugares do quarto que escondem números.",
-      "O post-it manda ler de cima para baixo: relógio, quadro e tapete.",
-      "O tapete guarda o número no código da página. Abram as ferramentas do navegador (F12), inspecionem o tapete e leiam os atributos dele.",
-      "A gaveta abre com 7, 3 e 5: a hora do relógio, as aves do quadro e o segredo do tapete."
-    ],
-    box: [
-      "A chave de latão serve para algo que está trancado. Olhem a estante.",
-      "Toquem na chave na mochila e depois na caixa de música."
-    ],
-    door: [
-      "O poema descreve quatro dos cinco símbolos, na ordem em que eles aparecem na porta.",
-      "A ordem é: lua, sol, gota, estrela. A folha sobra."
-    ]
+  var HOT2 = {
+    janela: {
+      text: "Uma janelinha redonda no alto do telhado. Lá fora, a mesma lua da página anterior."
+    },
+    caixas: {
+      text: "Caixas de papelão cheias de jornal picado. Nada que preste."
+    }
   };
 
+  var HINTS = {
+    1: {
+      drawer: [
+        "A gaveta pede três algarismos. Procurem três lugares do quarto que escondem números.",
+        "O post-it manda ler de cima para baixo: relógio, quadro e tapete.",
+        "O tapete guarda o número no código da página. Abram as ferramentas do navegador (F12), inspecionem o tapete e leiam os atributos dele.",
+        "A gaveta abre com 7, 3 e 5: a hora do relógio, as aves do quadro e o segredo do tapete."
+      ],
+      box: [
+        "A chave de latão serve para algo que está trancado. Olhem a estante.",
+        "Toquem na chave na mochila e depois na caixa de música."
+      ],
+      door: [
+        "O poema descreve quatro dos cinco símbolos, na ordem em que eles aparecem na porta.",
+        "A ordem é: lua, sol, gota, estrela. A folha sobra."
+      ]
+    },
+    2: {
+      luz: [
+        "A lanterna do casaco está sem pilha. Procurem no sótão alguma coisa que funcione a pilha.",
+        "O rádio tem pilha, mas a tampa está presa por um parafuso de fenda. Uma moeda serve de chave de fenda, e o porquinho da prateleira tem uma.",
+        "Toquem na moeda na mochila e depois no rádio. Depois juntem a pilha com a lanterna: toquem na pilha e depois na lanterna, ali mesmo na mochila."
+      ],
+      uv: [
+        "Luz roxa quase não aparece com a lâmpada acesa.",
+        "Puxem a cordinha da lâmpada para apagar a luz. No escuro, toquem na lanterna acesa na mochila e depois na parede de tábuas."
+      ],
+      bau: [
+        "Cada letra da parede tem um número pequeno do lado. O número diz a posição da letra na palavra.",
+        "L é a 1ª, U a 2ª, A a 3ª e R a 4ª. O baú abre com LUAR."
+      ],
+      alcapao: [
+        "Os lápis do baú transformam cores em números. Falta descobrir em que ordem as cores aparecem.",
+        "A ordem está na pintura do cavalete, mas o pano não sai com a mão: ele sai pelo código. F12, aba Elements, Ctrl+F e procurem por pano. Cliquem na linha <g id=\"pano\"> e apertem H (esconde) ou Delete (apaga). Depois toquem no cavalete.",
+        "A pintura mostra, da esquerda para a direita: balão verde, sol amarelo, barco vermelho e peixe azul. O alçapão abre com 7 2 4 9."
+      ]
+    }
+  };
+
+  function stageOf(n) {
+    if (n === 1) return !state.drawer ? "drawer" : (!state.box ? "box" : "door");
+    if (!state.lit) return "luz";
+    if (!state.uv) return "uv";
+    if (!state.chest) return "bau";
+    return "alcapao";
+  }
+
   /* ---------- utilidades de interface ---------- */
-  function narrate(text) {
+  function paintNarr(text) {
     var n = $("narr");
     n.innerHTML = "";
     var p = document.createElement("p");
     p.textContent = text;
     n.appendChild(p);
+  }
+
+  function narrate(text) {
+    pg().narr = text;
+    paintNarr(text);
   }
 
   function flash(text) {
@@ -782,62 +1165,136 @@
   }
 
   function addNote(key, text, tip) {
-    if (state.noteKeys[key]) return;
-    state.noteKeys[key] = true;
-    state.notes.push({ text: text, tip: !!tip });
+    var p = pg();
+    if (p.noteKeys[key]) return;
+    p.noteKeys[key] = true;
+    p.notes.push({ key: key, text: text, tip: !!tip });
+    renderNotes();
+  }
+
+  function removeNote(key) {
+    var p = pg();
+    p.notes = p.notes.filter(function (n) { return n.key !== key; });
+    delete p.noteKeys[key];
     renderNotes();
   }
 
   function renderNotes() {
     var ol = $("notes");
     ol.innerHTML = "";
-    if (!state.notes.length) {
+    var isBuilt = built(state.page);
+    var notes = isBuilt ? pg().notes : [];
+    $("clearBtn").disabled = !notes.length;
+    $("hintBtn").disabled = !isBuilt || pg().done;
+    if (!notes.length) {
       var e = document.createElement("li");
       e.className = "empty";
-      e.textContent = "Ainda em branco.";
+      e.textContent = isBuilt ? "Ainda em branco." : "Nada para anotar numa página em branco.";
       ol.appendChild(e);
       return;
     }
-    state.notes.forEach(function (n) {
+    notes.forEach(function (n) {
       var li = document.createElement("li");
       if (n.tip) li.className = "tip";
-      li.textContent = n.text;
+      var t = document.createElement("span");
+      t.textContent = n.text;
+      li.appendChild(t);
+      var x = document.createElement("button");
+      x.type = "button";
+      x.className = "note-x";
+      x.textContent = "×";
+      x.setAttribute("aria-label", "Apagar anotação: " + n.text);
+      x.addEventListener("click", function () {
+        removeNote(n.key);
+        flash("Anotação apagada.");
+        var next = $("notes").querySelector(".note-x");
+        (next || $("hintBtn")).focus();
+      });
+      li.appendChild(x);
       ol.appendChild(li);
     });
+  }
+
+  function clearNotesCard() {
+    var html = '<h3 id="cardTitle">Apagar anotações?</h3>' +
+      '<p>Todas as anotações desta página somem. As dicas já pedidas continuam contando, e o que vocês examinarem de novo volta para a lista.</p>' +
+      '<div class="row"><button class="btn ghost" data-close type="button">Cancelar</button>' +
+      '<button class="btn" id="wipeBtn" type="button">Apagar tudo</button></div>';
+    openCard(html, function (card) {
+      card.querySelector("#wipeBtn").addEventListener("click", function () {
+        var p = pg();
+        p.notes = [];
+        p.noteKeys = {};
+        renderNotes();
+        closeCard();
+        $("hintBtn").focus();
+        flash("Anotações apagadas.");
+      });
+    });
+  }
+
+  /* ---------- mochila ---------- */
+  function addItem(it) { if (state.inv.indexOf(it) < 0) state.inv.push(it); }
+  function dropItem(it) {
+    state.inv = state.inv.filter(function (i) { return i !== it; });
+    if (state.selected === it) state.selected = null;
   }
 
   function renderBag() {
     var host = $("bag");
     host.innerHTML = "";
-    var count = 3;
-    for (var i = 0; i < count; i++) {
+    for (var i = 0; i < SLOTS; i++) {
       var item = state.inv[i];
       var b = document.createElement("button");
       b.type = "button";
       b.className = "slot" + (item ? " has" : "");
       if (item) {
-        b.setAttribute("aria-pressed", state.selected === item ? "true" : "false");
-        b.setAttribute("aria-label", "Chave de latão" + (state.selected === item ? " (segurando)" : ""));
-        b.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#s-' + item + '"/></svg>';
-        b.addEventListener("click", function () {
-          var it = this.dataset.item;
-          state.selected = (state.selected === it) ? null : it;
-          renderBag();
-        });
+        var held = state.selected === item;
         b.dataset.item = item;
+        b.setAttribute("aria-pressed", held ? "true" : "false");
+        b.setAttribute("aria-label", cap(ITEMS[item]) + (held ? " (segurando)" : ""));
+        b.innerHTML = '<svg viewBox="0 0 48 48" aria-hidden="true"><use href="#s-' + item + '"/></svg>';
+        b.addEventListener("click", function () { bagClick(this.dataset.item); });
       } else {
         b.disabled = true;
         b.setAttribute("aria-label", "Espaço vazio");
       }
       host.appendChild(b);
     }
-    $("holding").textContent = state.selected ? "Segurando: chave de latão. Toque em algo para usar." : "";
+    $("holding").textContent = state.selected
+      ? "Segurando: " + ITEMS[state.selected] + ". Toque em algo do desenho para usar, ou em outro item para juntar."
+      : "";
   }
 
+  function bagClick(it) {
+    if (state.selected && state.selected !== it) { combine(state.selected, it); return; }
+    state.selected = (state.selected === it) ? null : it;
+    renderBag();
+  }
+
+  function combine(a, b) {
+    var pair = [a, b].sort().join("+");
+    state.selected = null;
+    if (pair === "lanterna+pilha") {
+      dropItem("lanterna");
+      dropItem("pilha");
+      addItem("uv");
+      state.lit = true;
+      renderBag();
+      narrate("A pilha entra certinha na lanterna. Você aperta o botão e sai uma luz roxa, fraquinha. Com a lâmpada acesa, quase não dá pra ver.");
+      addNote("lanterna-acesa", "Lanterna de luz roxa funcionando. Com a lâmpada acesa, a luz quase some.");
+      return;
+    }
+    renderBag();
+    narrate("Uma coisa não encaixa na outra.");
+  }
+
+  /* ---------- páginas ---------- */
   function renderTabs() {
     var host = $("tabs");
     host.innerHTML = "";
-    var unlocked = state.done ? 2 : 1;
+    var unlocked = 1;
+    while (unlocked < ROOMS && state.p[unlocked] && state.p[unlocked].done) unlocked++;
     for (var i = 1; i <= ROOMS; i++) {
       (function (n) {
         var b = document.createElement("button");
@@ -845,10 +1302,11 @@
         b.className = "tab";
         b.textContent = String(n);
         var locked = n > unlocked;
+        var done = !!(state.p[n] && state.p[n].done);
         if (locked) { b.classList.add("locked"); b.setAttribute("aria-disabled", "true"); }
-        if (n === 1 && state.done) b.classList.add("done");
+        if (done) b.classList.add("done");
         if (n === state.page) b.setAttribute("aria-current", "page");
-        b.setAttribute("aria-label", "Página " + n + (locked ? " (trancada)" : "") + (n === 1 && state.done ? " (concluída)" : ""));
+        b.setAttribute("aria-label", "Página " + n + (locked ? " (trancada)" : "") + (done ? " (concluída)" : ""));
         b.addEventListener("click", function () {
           if (locked) { flash("A página " + n + " só vira depois de sair da anterior."); return; }
           goPage(n);
@@ -860,14 +1318,33 @@
 
   function goPage(n) {
     state.page = n;
-    $("room").hidden = (n !== 1);
-    $("blank").hidden = (n === 1);
-    if (n !== 1) $("blankTitle").textContent = "Página " + n;
+    var isBuilt = built(n);
+    $("room").hidden = !isBuilt;
+    $("blank").hidden = isBuilt;
+    if (isBuilt) {
+      $("roomTitle").textContent = TITLES[n];
+      for (var i = 1; i <= BUILT; i++) $("sceneWrap" + i).hidden = (i !== n);
+      var p = pg();
+      if (!p.started) {
+        p.started = true;
+        p.running = true;
+        p.t0 = Date.now();
+        p.narr = INTRO[n];
+        if (n === 2) whisper2();
+      }
+      paintNarr(p.narr);
+    } else {
+      $("blankTitle").textContent = "Página " + n;
+      $("backBtn").textContent = "Voltar para a página " + BUILT;
+    }
     renderTabs();
+    renderNotes();
+    renderBag();
+    tick();
   }
 
-  function setSceneClass(name, on) {
-    $("scene").classList.toggle(name, on);
+  function setSceneClass(n, name, on) {
+    $(n === 1 ? "scene" : "scene" + n).classList.toggle(name, on);
   }
 
   /* ---------- diálogos ---------- */
@@ -892,9 +1369,12 @@
     el.classList.add("shake");
   }
 
-  function drawerLock() {
-    var vals = [0, 0, 0];
-    var html = '<h3 id="cardTitle">Cadeado da gaveta</h3><p>Três algarismos.</p>' +
+  // cadeado de rodinhas: algarismos ou letras
+  function dialLock(o) {
+    var vals = [];
+    for (var k = 0; k < o.count; k++) vals.push(0);
+    var size = o.glyphs.length;
+    var html = '<h3 id="cardTitle">' + o.title + '</h3><p>' + o.desc + '</p>' +
       '<div class="dials" id="dials"></div>' +
       '<p class="lockmsg" id="lockMsg" role="status" aria-live="polite"></p>' +
       '<div class="row"><button class="btn" id="tryBtn" type="button">Tentar abrir</button>' +
@@ -904,37 +1384,63 @@
       function paint() {
         dials.innerHTML = "";
         vals.forEach(function (v, i) {
+          var g = o.glyphs[v];
           var d = document.createElement("div");
           d.className = "dial";
           d.innerHTML =
-            '<button class="arrow" type="button" data-i="' + i + '" data-d="1" aria-label="Aumentar algarismo ' + (i + 1) + '">▲</button>' +
-            '<div class="num" aria-label="Algarismo ' + (i + 1) + ': ' + v + '">' + v + '</div>' +
-            '<button class="arrow" type="button" data-i="' + i + '" data-d="-1" aria-label="Diminuir algarismo ' + (i + 1) + '">▼</button>';
+            '<button class="arrow" type="button" data-i="' + i + '" data-d="1" aria-label="Aumentar ' + o.unit + ' ' + (i + 1) + '">▲</button>' +
+            '<div class="num' + (o.letters ? " letter" : "") + '" aria-label="' + cap(o.unit) + ' ' + (i + 1) + ': ' + g + '">' + g + '</div>' +
+            '<button class="arrow" type="button" data-i="' + i + '" data-d="-1" aria-label="Diminuir ' + o.unit + ' ' + (i + 1) + '">▼</button>';
           dials.appendChild(d);
         });
+      }
+      function refocus(i, d) {
+        var again = dials.querySelector('button[data-i="' + i + '"][data-d="' + d + '"]');
+        if (again) again.focus();
       }
       paint();
       dials.addEventListener("click", function (e) {
         var b = e.target.closest("button[data-i]");
         if (!b) return;
         var i = +b.dataset.i, d = +b.dataset.d;
-        vals[i] = (vals[i] + d + 10) % 10;
+        vals[i] = (vals[i] + d + size) % size;
         paint();
-        var again = dials.querySelector('button[data-i="' + i + '"][data-d="' + d + '"]');
-        if (again) again.focus();
+        refocus(i, d);
+      });
+      // digitar direto no teclado também vale
+      dials.addEventListener("keydown", function (e) {
+        var b = e.target.closest("button[data-i]");
+        if (!b || e.key.length !== 1) return;
+        var idx = o.glyphs.indexOf(e.key.toUpperCase());
+        if (idx < 0) return;
+        e.preventDefault();
+        var i = +b.dataset.i;
+        vals[i] = idx;
+        paint();
+        refocus(Math.min(i + 1, o.count - 1), 1);
       });
       card.querySelector("#tryBtn").addEventListener("click", function () {
         var msg = card.querySelector("#lockMsg");
-        if (btoa(vals.join("")) === DRAWER_CODE) {
+        var guess = vals.map(function (v) { return o.glyphs[v]; }).join("");
+        if (btoa(guess) === o.code) {
           msg.className = "lockmsg ok";
-          msg.textContent = "Clique. A gaveta abriu.";
-          setTimeout(function () { closeCard(); openDrawer(); }, 650);
+          msg.textContent = o.okMsg;
+          setTimeout(function () { closeCard(); o.onOpen(); }, 650);
         } else {
           msg.className = "lockmsg";
-          msg.textContent = "O cadeado não cedeu.";
+          msg.textContent = o.failMsg || "O cadeado não cedeu.";
           shake(dials);
         }
       });
+    });
+  }
+
+  function drawerLock() {
+    dialLock({
+      title: "Cadeado da gaveta", desc: "Três algarismos.",
+      count: 3, glyphs: DIGITS, unit: "algarismo",
+      code: CODES.gaveta, okMsg: "Clique. A gaveta abriu.",
+      onOpen: openDrawer
     });
   }
 
@@ -973,10 +1479,10 @@
       card.querySelector("#tryBtn").addEventListener("click", function () {
         var msg = card.querySelector("#lockMsg");
         var guess = vals.map(function (v) { return SYMS[v]; }).join(",");
-        if (btoa(guess) === DOOR_CODE) {
+        if (btoa(guess) === CODES.porta) {
           msg.className = "lockmsg ok";
           msg.textContent = "A porta se abriu.";
-          setTimeout(function () { closeCard(); finish(); }, 650);
+          setTimeout(function () { closeCard(); finishPage(1); }, 650);
         } else {
           msg.className = "lockmsg";
           msg.textContent = "Nada aconteceu.";
@@ -998,11 +1504,25 @@
     openCard(html);
   }
 
-  /* ---------- ações do jogo ---------- */
+  function pencilsCard() {
+    var html = '<h3 id="cardTitle">Dentro do baú</h3>' +
+      '<p>Quatro lápis de cor gastos, cada um com um número gravado:</p>' +
+      '<ul class="pencils">' +
+      '<li><i style="background:var(--green)"></i>verde: 7</li>' +
+      '<li><i style="background:var(--red)"></i>vermelho: 4</li>' +
+      '<li><i style="background:var(--blue)"></i>azul: 9</li>' +
+      '<li><i style="background:var(--hl)"></i>amarelo: 2</li>' +
+      '</ul>' +
+      '<div class="poem"><p>“A pintura sabe a ordem.<br>Leia como quem lê um livro.”</p></div>' +
+      '<div class="row"><button class="btn" data-close type="button">Guardar</button></div>';
+    openCard(html);
+  }
+
+  /* ---------- página 1 ---------- */
   function openDrawer() {
     state.drawer = true;
-    setSceneClass("is-drawer", true);
-    if (state.inv.indexOf("chave") < 0) state.inv.push("chave");
+    setSceneClass(1, "is-drawer", true);
+    addItem("chave");
     renderBag();
     addNote("gaveta", "Gaveta aberta. Dentro: uma chave de latão e um bilhete rasgado.");
     addNote("bilhete", "Bilhete: “A música guarda o que o relógio esqueceu.”");
@@ -1011,20 +1531,19 @@
 
   function openBox() {
     state.box = true;
-    state.selected = null;
-    state.inv = state.inv.filter(function (i) { return i !== "chave"; });
+    dropItem("chave");
     renderBag();
-    setSceneClass("is-box", true);
+    setSceneClass(1, "is-box", true);
     addNote("poema", "Poema na caixa de música: quatro versos, quatro símbolos. A ordem importa.");
     narrate("A chave gira. A caixa toca uma nota fraca e revela um papel dobrado.");
     poemCard();
   }
 
-  function hotspot(id) {
-    if (state.done) { narrate("A porta já está aberta. Falta só virar a página."); return; }
+  function hotspot1(id) {
+    if (state.p[1].done) { narrate("A porta já está aberta. Falta só virar a página."); return; }
 
     if (state.selected && id !== "caixa") {
-      narrate("A chave não serve nisso.");
+      narrate(state.selected === "chave" ? "A chave não serve nisso." : "Isso não serve aqui.");
       return;
     }
 
@@ -1053,91 +1572,377 @@
     if (h.note) addNote(id, h.note);
   }
 
+  /* ---------- página 2 ---------- */
+  function panoGone() {
+    var p = document.getElementById("pano");
+    if (!p || !p.isConnected) return true;
+    var cs = window.getComputedStyle(p);
+    return cs.display === "none" || cs.visibility === "hidden" || parseFloat(cs.opacity) < 0.15;
+  }
+
+  function toggleLight() {
+    state.dark = !state.dark;
+    setSceneClass(2, "is-dark", state.dark);
+    if (state.dark) {
+      narrate(state.lit
+        ? "Você puxa a cordinha e o sótão some no escuro. Com a lanterna roxa na mochila, o escuro fica interessante."
+        : "Você puxa a cordinha e o sótão some no escuro. Sem nenhuma luz, não dá pra fazer nada.");
+    } else {
+      narrate("Você puxa a cordinha de novo e a lâmpada volta a acender.");
+    }
+    addNote("lampada", "Lâmpada: a cordinha apaga e acende o sótão.");
+  }
+
+  function revealUV() {
+    var first = !state.uv;
+    state.uv = true;
+    setSceneClass(2, "is-uv", true);
+    narrate(first
+      ? "A luz roxa varre as tábuas e letras aparecem brilhando, cada uma com um numerinho do lado: A com 3, R com 4, L com 1 e U com 2."
+      : "As letras continuam brilhando na parede: A3, R4, L1, U2.");
+    addNote("uv-parede", "Parede na luz roxa: A3, R4, L1, U2.");
+  }
+
+  function openRadio() {
+    state.radio = true;
+    dropItem("moeda");
+    addItem("pilha");
+    renderBag();
+    setSceneClass(2, "is-radio", true);
+    narrate("A moeda encaixa na fenda do parafuso e ele gira. Atrás da tampa tem uma pilha. Você deixa a moeda em cima do rádio e guarda a pilha.");
+    addNote("pilha", "Rádio aberto: tinha uma pilha dentro.");
+  }
+
+  function openChest() {
+    state.chest = true;
+    setSceneClass(2, "is-bau", true);
+    narrate("Dentro do baú: quatro lápis de cor gastos, cada um com um número gravado, e um bilhete dobrado.");
+    addNote("lapis", "Lápis do baú: verde 7, vermelho 4, azul 9, amarelo 2.");
+    addNote("bilhete2", "Bilhete do baú: “A pintura sabe a ordem. Leia como quem lê um livro.”");
+    pencilsCard();
+  }
+
+  function useItem2(item, id) {
+    if (item === "moeda" && id === "radio") { openRadio(); return; }
+    if (item === "uv") {
+      narrate(id === "parede"
+        ? "A luz roxa bate nas tábuas, mas com a lâmpada acesa não dá pra ver nada."
+        : "A luz roxa não mostra nada aí. Com a lâmpada acesa, ela quase nem aparece.");
+      return;
+    }
+    if (item === "lanterna") { narrate("Você aperta o botão da lanterna. Nada: está sem pilha."); return; }
+    if (item === "pilha") { narrate("A pilha não serve aí. Talvez em algo que já está na mochila."); return; }
+    if (item === "moeda") { narrate("A moeda não serve nisso."); return; }
+    narrate("Isso não serve aqui.");
+  }
+
+  function hotspot2(id) {
+    if (state.p[2].done) { narrate("O alçapão já está aberto. Falta só virar a página."); return; }
+
+    if (id === "lampada") { toggleLight(); return; }
+
+    if (state.dark) {
+      if (state.selected === "uv") {
+        if (id === "parede") { revealUV(); return; }
+        narrate("A luz roxa passa por aí e não mostra nada de diferente.");
+        return;
+      }
+      narrate("Está escuro demais para mexer nisso. Só dá pra ver a cordinha da lâmpada.");
+      return;
+    }
+
+    if (state.selected) { useItem2(state.selected, id); return; }
+
+    if (id === "casaco") {
+      if (state.coat) { narrate("Os bolsos do casaco estão vazios. Só tem fiapo."); return; }
+      state.coat = true;
+      addItem("lanterna");
+      renderBag();
+      narrate("No bolso do casaco tem uma lanterna pequena com a lente roxa. Você aperta o botão: nada. Está sem pilha. Ela vai para a mochila.");
+      addNote("casaco", "Casaco: lanterna de luz roxa, sem pilha.");
+      return;
+    }
+    if (id === "porquinho") {
+      if (state.coin) { narrate("Você sacode o porquinho de novo. Silêncio: está vazio."); return; }
+      state.coin = true;
+      addItem("moeda");
+      renderBag();
+      narrate("Um porquinho de cerâmica. Você sacode, sacode, e uma moeda escorrega pela fenda.");
+      addNote("porquinho", "Porquinho: tinha uma moeda.");
+      return;
+    }
+    if (id === "radio") {
+      if (state.radio) { narrate("O compartimento do rádio está aberto e vazio. A moeda continua em cima dele."); return; }
+      narrate("Um rádio velho e mudo. Embaixo do botão de sintonia, a tampa das pilhas está presa por um parafuso de fenda.");
+      addNote("radio", "Rádio: tampa das pilhas presa por um parafuso de fenda.");
+      return;
+    }
+    if (id === "parede") {
+      if (state.uv) { narrate("Com a luz acesa, as tábuas parecem normais. Mas vocês já sabem o que elas escondem."); return; }
+      narrate("Tábuas velhas, cheias de nós e manchas. Em algumas, parece haver riscos que somem quando você olha direito.");
+      addNote("parede", "Parede de tábuas: riscos que quase não aparecem.");
+      return;
+    }
+    if (id === "bau") {
+      if (state.chest) { pencilsCard(); return; }
+      narrate("Um baú pesado, com um cadeado de quatro letras.");
+      addNote("bau", "Baú: cadeado de quatro letras.");
+      dialLock({
+        title: "Cadeado do baú", desc: "Quatro letras. Dá pra usar as setas ou digitar.",
+        count: 4, glyphs: LETTERS, unit: "letra", letters: true,
+        code: CODES.bau, okMsg: "A tampa do baú range e abre.",
+        onOpen: openChest
+      });
+      return;
+    }
+    if (id === "cavalete") {
+      if (state.painting || panoGone()) {
+        var first = !state.painting;
+        state.painting = true;
+        narrate("Sem o pano, a pintura aparece: um balão verde, um sol amarelo, um barco vermelho e um peixe azul, da esquerda para a direita.");
+        addNote("pintura", "Pintura: balão verde, sol amarelo, barco vermelho, peixe azul (da esquerda para a direita).");
+        if (first) flash("Vocês tiraram o pano por dentro do desenho.");
+      } else {
+        narrate("Uma tela no cavalete, coberta por um pano. O pano está pregado na moldura e não sai de jeito nenhum: parece fazer parte do desenho.");
+        addNote("cavalete", "Cavalete: o pano não sai com a mão. Faz parte do desenho… ou do código?");
+      }
+      return;
+    }
+    if (id === "alcapao") {
+      narrate("Um alçapão no chão, com cadeado de quatro números. É a única saída do sótão.");
+      addNote("alcapao", "Alçapão: cadeado de quatro números. É a saída.");
+      dialLock({
+        title: "Cadeado do alçapão", desc: "Quatro algarismos.",
+        count: 4, glyphs: DIGITS, unit: "algarismo",
+        code: CODES.alcapao, okMsg: "Clique. O alçapão destrancou.",
+        onOpen: function () { finishPage(2); }
+      });
+      return;
+    }
+    var h = HOT2[id];
+    if (!h) return;
+    narrate(h.text);
+    if (h.note) addNote(id, h.note);
+  }
+
+  function whisper2() {
+    try {
+      console.log("%cPágina 2.", "font: 700 26px Caveat, cursive; color: #8f5bff;",
+        "\nUm pano desenhado é só uma linha de código.\nElementos > pano. Dá pra esconder (tecla H) ou apagar (Delete).");
+    } catch (e) { /* ignora */ }
+  }
+
+  /* ---------- dicas ---------- */
   function giveHint() {
-    var stage = !state.drawer ? "drawer" : (!state.box ? "box" : "door");
-    var list = HINTS[stage];
-    var used = state.hintStage[stage] || 0;
-    if (used >= list.length) { flash("Não há mais dicas para esta etapa."); return; }
-    state.hintStage[stage] = used + 1;
-    state.hints += 1;
-    $("hintCount").textContent = String(state.hints);
+    if (!built(state.page)) { flash("Não há nada nesta página ainda."); return; }
+    var p = pg();
+    if (p.done) { flash("Esta página já foi resolvida."); return; }
+    var stage = stageOf(state.page);
+    var list = HINTS[state.page][stage];
+    var used = p.hintStage[stage] || 0;
+    if (used >= list.length) {
+      // dicas apagadas voltam sem contar de novo
+      var back = 0;
+      for (var i = 0; i < list.length; i++) {
+        var key = "dica-" + stage + "-" + i;
+        if (!p.noteKeys[key]) { addNote(key, "Dica: " + list[i], true); back++; }
+      }
+      flash(back ? "As dicas desta etapa voltaram para as anotações." : "Não há mais dicas para esta etapa.");
+      return;
+    }
+    p.hintStage[stage] = used + 1;
+    p.hints += 1;
+    tick();
     addNote("dica-" + stage + "-" + used, "Dica: " + list[used], true);
     flash("Dica registrada nas anotações.");
   }
 
-  function finish() {
-    if (state.done) return;
-    state.done = true;
-    state.running = false;
-    clearInterval(timerId);
-    state.elapsed = Math.floor((Date.now() - state.t0) / 1000);
-    setSceneClass("is-door", true);
+  /* ---------- fim de página ---------- */
+  function finishPage(n) {
+    var p = state.p[n];
+    if (p.done) return;
+    p.done = true;
+    p.running = false;
+    p.elapsed = Math.floor((Date.now() - p.t0) / 1000);
+    state.selected = null;
+    if (n === 1) {
+      setSceneClass(1, "is-door", true);
+      narrate("A porta abre e a luz entra no desenho. A página inteira treme, pronta para ser virada.");
+    } else {
+      state.dark = false;
+      setSceneClass(2, "is-dark", false);
+      setSceneClass(2, "is-hatch", true);
+      narrate("O alçapão se abre. Lá embaixo, uma escada desenhada a lápis desce para a próxima página.");
+    }
     renderTabs();
     renderBag();
-    narrate("A porta abre e a luz entra no desenho. A página inteira treme, pronta para ser virada.");
+    renderNotes();
+    tick();
 
-    var best = readBest();
-    var isBest = !best || state.elapsed < best;
-    if (isBest) saveBest(state.elapsed);
+    var best = readBest(n);
+    var isBest = !best || p.elapsed < best;
+    if (isBest) saveBest(n, p.elapsed);
 
-    var html = '<h3 id="cardTitle">Página 1 concluída</h3>' +
-      '<p>Vocês saíram da escrivaninha.</p>' +
-      '<div class="stats"><div><b>' + fmt(state.elapsed) + '</b><span>tempo' + (isBest ? " (recorde)" : "") + '</span></div>' +
-      '<div><b>' + state.hints + '</b><span>dicas</span></div></div>' +
+    var html = '<h3 id="cardTitle">Página ' + n + ' concluída</h3>' +
+      '<p>' + (n === 1 ? "Vocês saíram da escrivaninha." : "Vocês desceram do sótão.") + '</p>' +
+      '<div class="stats"><div><b>' + fmt(p.elapsed) + '</b><span>tempo' + (isBest ? " (recorde)" : "") + '</span></div>' +
+      '<div><b>' + p.hints + '</b><span>dicas</span></div></div>' +
       '<div class="row"><button class="btn" id="turnBtn" type="button">Virar a página</button>' +
       '<button class="btn ghost" data-close type="button">Ficar na sala</button></div>';
     openCard(html, function (card) {
-      card.querySelector("#turnBtn").addEventListener("click", function () { closeCard(); goPage(2); });
+      card.querySelector("#turnBtn").addEventListener("click", function () { closeCard(); goPage(n + 1); });
     });
   }
 
   /* ---------- tempo e recorde ---------- */
-  function readBest() {
-    try { return parseInt(localStorage.getItem("caderno_best") || "", 10) || 0; } catch (e) { return 0; }
+  function bestKey(n) { return n === 1 ? "caderno_best" : "caderno_best_" + n; }
+  function readBest(n) {
+    try { return parseInt(localStorage.getItem(bestKey(n)) || "", 10) || 0; } catch (e) { return 0; }
   }
-  function saveBest(s) {
-    try { localStorage.setItem("caderno_best", String(s)); } catch (e) { /* ignora */ }
+  function saveBest(n, s) {
+    try { localStorage.setItem(bestKey(n), String(s)); } catch (e) { /* ignora */ }
   }
   function tick() {
-    if (!state || !state.running) return;
-    $("clock").textContent = fmt(Math.floor((Date.now() - state.t0) / 1000));
+    if (!state) return;
+    var p = state.p[state.page];
+    var txt = "--:--";
+    if (p && p.started) txt = fmt(p.running ? Math.floor((Date.now() - p.t0) / 1000) : p.elapsed);
+    $("clock").textContent = txt;
+    $("hintCount").textContent = p ? String(p.hints) : "0";
+    save();
   }
 
-  function start() {
-    state = fresh();
-    state.t0 = Date.now();
-    state.running = true;
+  /* ---------- jogo salvo ---------- */
+  var SAVE_KEY = "caderno_save";
+
+  function save() {
+    if (!state) return;
+    try {
+      var copy = JSON.parse(JSON.stringify(state));
+      Object.keys(copy.p).forEach(function (k) {
+        var p = copy.p[k];
+        if (p.running) p.elapsed = Math.floor((Date.now() - p.t0) / 1000);
+        p.t0 = 0;
+      });
+      copy.v = 1;
+      localStorage.setItem(SAVE_KEY, JSON.stringify(copy));
+    } catch (e) { /* ignora */ }
+  }
+
+  function loadSave() {
+    try {
+      var s = JSON.parse(localStorage.getItem(SAVE_KEY) || "null");
+      if (s && s.v === 1 && s.p && s.p[1] && s.p[2]) return s;
+    } catch (e) { /* ignora */ }
+    return null;
+  }
+
+  function applyScenes() {
+    setSceneClass(1, "is-drawer", !!state.drawer);
+    setSceneClass(1, "is-box", !!state.box);
+    setSceneClass(1, "is-door", !!state.p[1].done);
+    setSceneClass(2, "is-dark", !!state.dark);
+    setSceneClass(2, "is-uv", !!state.uv);
+    setSceneClass(2, "is-bau", !!state.chest);
+    setSceneClass(2, "is-radio", !!state.radio);
+    setSceneClass(2, "is-hatch", !!state.p[2].done);
+    var pano = $("pano");
+    if (pano && state.painting) pano.style.display = "none";
+  }
+
+  function openGame() {
+    closeCard();
     $("intro").hidden = true;
     $("game").hidden = false;
-    ["is-door", "is-drawer", "is-box"].forEach(function (c) { setSceneClass(c, false); });
-    $("clock").textContent = "00:00";
-    $("hintCount").textContent = "0";
-    $("room").hidden = false;
-    $("blank").hidden = true;
-    narrate("Você acorda dentro de um desenho. A porta tem quatro símbolos e nenhuma maçaneta que sirva. Comece olhando em volta.");
-    renderTabs();
-    renderNotes();
-    renderBag();
+    applyScenes();
+    goPage(state.page);
     clearInterval(timerId);
     timerId = setInterval(tick, 500);
     window.scrollTo(0, 0);
   }
 
-  /* ---------- eventos ---------- */
-  $("startBtn").addEventListener("click", start);
-  $("hintBtn").addEventListener("click", giveHint);
-  $("backBtn").addEventListener("click", function () { goPage(1); });
+  function resume() {
+    var s = loadSave();
+    if (!s) { start(); return; }
+    delete s.v;
+    Object.keys(s.p).forEach(function (k) {
+      var p = s.p[k];
+      if (p.running) p.t0 = Date.now() - p.elapsed * 1000;
+    });
+    state = s;
+    openGame();
+  }
 
-  var scene = $("scene");
-  scene.addEventListener("click", function (e) {
-    var h = e.target.closest(".hot");
-    if (h) hotspot(h.dataset.id);
-  });
-  scene.addEventListener("keydown", function (e) {
-    if (e.key !== "Enter" && e.key !== " ") return;
-    var h = e.target.closest(".hot");
-    if (h) { e.preventDefault(); hotspot(h.dataset.id); }
-  });
+  function exitGame() {
+    save();
+    clearInterval(timerId);
+    state = null;
+    $("game").hidden = true;
+    $("intro").hidden = false;
+    refreshCover();
+    $("continueBtn").focus();
+    window.scrollTo(0, 0);
+  }
+
+  function refreshCover() {
+    var s = loadSave();
+    $("continueBtn").hidden = !s;
+    $("startBtn").textContent = s ? "Começar do zero" : "Abrir o caderno";
+    $("startBtn").classList.toggle("ghost", !!s);
+    var info = $("saveInfo");
+    if (s) {
+      var p = s.p[s.page];
+      info.hidden = false;
+      info.textContent = "Tem um jogo salvo neste aparelho: página " + s.page +
+        (p && p.started ? ", com " + fmt(p.elapsed) + " de tempo nela" : "") + ".";
+    } else {
+      info.hidden = true;
+    }
+    var bests = [];
+    for (var n = 1; n <= BUILT; n++) { var b = readBest(n); if (b) bests.push("página " + n + " em " + fmt(b)); }
+    $("best").textContent = "As páginas 1 e 2 estão prontas. As outras ainda estão em branco." +
+      (bests.length ? " Melhores tempos neste aparelho: " + bests.join(", ") + "." : "");
+  }
+
+  function askRestart() {
+    if (!loadSave()) { start(); return; }
+    var html = '<h3 id="cardTitle">Começar do zero?</h3>' +
+      '<p>O jogo salvo neste aparelho vai ser apagado. Os recordes de tempo continuam.</p>' +
+      '<div class="row"><button class="btn ghost" data-close type="button">Cancelar</button>' +
+      '<button class="btn" id="restartBtn" type="button">Começar do zero</button></div>';
+    openCard(html, function (card) {
+      card.querySelector("#restartBtn").addEventListener("click", start);
+    });
+  }
+
+  function start() {
+    state = fresh();
+    var pano = $("pano");
+    if (pano) pano.style.display = "";
+    openGame();
+  }
+
+  /* ---------- eventos ---------- */
+  $("startBtn").addEventListener("click", askRestart);
+  $("continueBtn").addEventListener("click", resume);
+  $("exitBtn").addEventListener("click", exitGame);
+  $("hintBtn").addEventListener("click", giveHint);
+  $("clearBtn").addEventListener("click", clearNotesCard);
+  $("backBtn").addEventListener("click", function () { goPage(BUILT); });
+
+  function wireScene(el, handler) {
+    el.addEventListener("click", function (e) {
+      var h = e.target.closest(".hot");
+      if (h) handler(h.dataset.id);
+    });
+    el.addEventListener("keydown", function (e) {
+      if (e.key !== "Enter" && e.key !== " ") return;
+      var h = e.target.closest(".hot");
+      if (h) { e.preventDefault(); handler(h.dataset.id); }
+    });
+  }
+  wireScene($("scene"), hotspot1);
+  wireScene($("scene2"), hotspot2);
 
   $("veil").addEventListener("click", function (e) {
     if (e.target === $("veil") || e.target.closest("[data-close]")) closeCard();
@@ -1146,8 +1951,9 @@
     if (e.key === "Escape" && !$("veil").hidden) closeCard();
   });
 
-  var b = readBest();
-  if (b) $("best").textContent = "A página 1 está pronta. As outras ainda estão em branco. Melhor tempo neste aparelho: " + fmt(b) + ".";
+  document.addEventListener("visibilitychange", function () { if (document.hidden) save(); });
+  window.addEventListener("pagehide", save);
+  refreshCover();
 
   try {
     console.log("%cPsiu.", "font: 700 26px Caveat, cursive; color: #c2402e;",
